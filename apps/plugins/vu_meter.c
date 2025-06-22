@@ -468,6 +468,17 @@
 #define LABEL_MENU      "MENU"
 #define LABEL_VOLUME    "UP/DOWN"
 
+#elif CONFIG_KEYPAD == SDL_PAD
+#define VUMETER_QUIT    BUTTON_BOTTOMRIGHT
+#define VUMETER_HELP    BUTTON_CENTER
+#define VUMETER_MENU    BUTTON_TOPRIGHT
+#define VUMETER_UP      BUTTON_TOPMIDDLE
+#define VUMETER_DOWN    BUTTON_BOTTOMMIDDLE
+#define LABEL_HELP      "A"
+#define LABEL_QUIT      "Y"
+#define LABEL_MENU      "X"
+#define LABEL_VOLUME    "Up/Down"
+
 #else
 #error No keymap defined!
 #endif

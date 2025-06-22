@@ -79,8 +79,11 @@ target/hosted/sdl/system-sdl.c
 #ifdef HAVE_SDL_THREADS
 target/hosted/sdl/filesystem-sdl.c
 #endif
+target/hosted/sysfs.c
 target/hosted/sdl/load_code-sdl.c
 target/hosted/sdl/timer-sdl.c
+target/hosted/sdl/power-sdl-linux.c
+target/hosted/sdl/powermgmt-sdl-linux.c
 #ifdef HAVE_TOUCHSCREEN
 target/hosted/sdl/key_to_touch-sdl.c
 #endif
