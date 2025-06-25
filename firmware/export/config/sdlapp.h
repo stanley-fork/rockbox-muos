@@ -51,6 +51,7 @@
 /* define this to indicate your device's keypad */
 #define HAVE_TOUCHSCREEN
 #define HAVE_BUTTON_DATA
+#define HAS_BUTTON_HOLD
 
 /* define this if you have a real-time clock */
 #define CONFIG_RTC APPLICATION

@@ -578,7 +578,7 @@ static void button_event(int key, bool pressed)
         return;
 #endif
 #endif
-#if (CONFIG_PLATFORM & PLATFORM_PANDORA)
+#if (CONFIG_PLATFORM & PLATFORM_PANDORA | PLATFORM_SDL)
     case SDLK_LCTRL:
         /* Will post SDL_USEREVENT in shutdown_hw() if successful. */
         sys_poweroff();
