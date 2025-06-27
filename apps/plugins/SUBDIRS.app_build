@@ -16,6 +16,8 @@ tagcache
 fft
 #endif
 
+shortcuts
+text_viewer
 imageviewer
 
 /* For all the swcodec targets */

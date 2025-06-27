@@ -587,6 +587,12 @@
 #define TV_LINE_DOWN    BUTTON_DOWN
 #define TV_BOOKMARK     (BUTTON_MENU|BUTTON_PLAY)
 
+#elif CONFIG_KEYPAD == SDL_PAD
+/* use touchscreen */
+#define TV_BOOKMARK     (BUTTON_TOPLEFT|BUTTON_MIDRIGHT)
+#define TV_LINE_UP      (BUTTON_TOPLEFT|BUTTON_TOPMIDDLE)
+#define TV_LINE_DOWN    (BUTTON_TOPLEFT|BUTTON_BOTTOMMIDDLE)
+
 #else
 #error No keymap defined!
 #endif
@@ -595,7 +601,7 @@
 #ifdef TV_QUIT
 #define TV_QUIT2        BUTTON_TOPLEFT
 #else
-#define TV_QUIT         BUTTON_TOPLEFT
+#define TV_QUIT         BUTTON_BOTTOMRIGHT
 #endif
 #ifdef TV_SCROLL_UP
 #define TV_SCROLL_UP2   BUTTON_TOPMIDDLE
