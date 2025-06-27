@@ -12,6 +12,12 @@ pictureflow
 tagcache
 #endif
 
+#if PLUGIN_BUFFER_SIZE > 0x20000
+fft
+#endif
+
+imageviewer
+
 /* For all the swcodec targets */
 #if MEMORYSIZE > 2 /* we need a lot of RAM for instruments */
 mikmod
