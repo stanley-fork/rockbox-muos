@@ -65,6 +65,7 @@ static fb_data *lcd_fb;
 #define PF_SORTING_NEXT (LAST_ACTION_PLACEHOLDER + 3)
 #define PF_SORTING_PREV (LAST_ACTION_PLACEHOLDER + 4)
 
+/*
 #if defined(HAVE_SCROLLWHEEL) || CONFIG_KEYPAD == IRIVER_H10_PAD || \
     CONFIG_KEYPAD == MPIO_HD300_PAD
 #if (CONFIG_KEYPAD != IPOD_1G2G_PAD) \
@@ -74,6 +75,7 @@ static fb_data *lcd_fb;
 #define USE_CORE_PREVNEXT
 #endif
 #endif
+*/
 
 #ifndef USE_CORE_PREVNEXT
     /* scrollwheel targets use the wheel, just as they do in lists,
@@ -86,6 +88,16 @@ const struct button_mapping pf_context_album_scroll[] =
     {PF_PREV_REPEAT,  BUTTON_MIDLEFT|BUTTON_REPEAT,   BUTTON_NONE},
     {PF_NEXT,         BUTTON_MIDRIGHT,                BUTTON_NONE},
     {PF_NEXT_REPEAT,  BUTTON_MIDRIGHT|BUTTON_REPEAT,  BUTTON_NONE},
+    {PF_SELECT,       BUTTON_TOPMIDDLE,               BUTTON_NONE},
+    {PF_MENU,         BUTTON_TOPLEFT,                BUTTON_NONE},
+    {PF_QUIT,         BUTTON_BOTTOMRIGHT,             BUTTON_NONE},
+    {PF_WPS,          BUTTON_TOPRIGHT,                BUTTON_NONE},
+    {ACTION_NONE,     BUTTON_CENTER,                  BUTTON_NONE},
+    {ACTION_NONE,     BUTTON_BOTTOMMIDDLE,            BUTTON_NONE},
+    {ACTION_NONE,     BUTTON_MIDLEFT|BUTTON_REL,      BUTTON_MIDLEFT},
+    {ACTION_NONE,     BUTTON_MIDRIGHT|BUTTON_REL,     BUTTON_MIDRIGHT},
+    {ACTION_NONE,     BUTTON_MIDLEFT|BUTTON_REPEAT,   BUTTON_MIDLEFT},
+    {ACTION_NONE,     BUTTON_MIDRIGHT|BUTTON_REPEAT,  BUTTON_MIDRIGHT},
 #endif
 #if (CONFIG_KEYPAD == IAUDIO_M3_PAD || CONFIG_KEYPAD == MROBE500_PAD)
     {PF_PREV,         BUTTON_RC_REW,              BUTTON_NONE},
@@ -125,6 +137,8 @@ const struct button_mapping pf_context_buttons[] =
 #ifdef HAVE_TOUCHSCREEN
     {PF_SELECT,       BUTTON_CENTER,              BUTTON_NONE},
     {PF_BACK,         BUTTON_BOTTOMRIGHT,         BUTTON_NONE},
+    {PF_MENU,         BUTTON_TOPLEFT,             BUTTON_NONE},
+    {PF_WPS,          BUTTON_TOPRIGHT,            BUTTON_NONE},
 #endif
 #if CONFIG_KEYPAD == CREATIVEZV_PAD || CONFIG_KEYPAD == CREATIVEZVM_PAD || \
     CONFIG_KEYPAD == PHILIPS_HDD1630_PAD || \

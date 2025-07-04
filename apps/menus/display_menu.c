@@ -612,14 +612,14 @@ MENUITEM_SETTING(codepage_setting, &global_settings.default_codepage, codepage_c
 
 MAKE_MENU(display_menu, ID2P(LANG_DISPLAY),
             NULL, Icon_Display_menu,
-            &lcd_settings,
+            /* &lcd_settings, */
 #ifdef HAVE_REMOTE_LCD
             &lcd_remote_settings,
 #endif
-            &scroll_settings_menu,
+            /* &scroll_settings_menu, */
             &peak_meter_menu,
             &codepage_setting,
 #ifdef HAVE_TOUCHSCREEN
-            &touchscreen_menu,
+            /* &touchscreen_menu, */
 #endif
             );
