@@ -60,7 +60,7 @@
 #else /* APPLICATION */
 
 #define HOME_DIR "<HOME>" /* replaced at runtime */
-#define HAVE_SPECIAL_DIRS
+/* #define HAVE_SPECIAL_DIRS */
 
 #define PLUGIN_DIR          ROCKBOX_DIR "/rocks"
 #if (CONFIG_PLATFORM & PLATFORM_ANDROID)

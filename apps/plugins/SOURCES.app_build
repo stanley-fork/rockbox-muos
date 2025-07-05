@@ -32,6 +32,7 @@ view_text.c
 
 main_menu_config.c
 random_folder_advance_config.c
+open_plugins.c
 
 /* HAVE_TAGCACHE related */
 db_folder_select.c
