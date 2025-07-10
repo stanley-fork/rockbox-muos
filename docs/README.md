@@ -15,6 +15,25 @@ This is a fork of Rockbox with a few changes to make it compatible with various 
 
 **Portmaster** support is unofficial [due to some issues](https://github.com/IncognitoMan/rockbox/issues/1).
 
+## Notes
+
+#### Setting Database Scan Directory
+
+Would ***highly*** suggest setting database scan directory before scanning/building the database. Have `Database` highlighted, press and hold `A` button to pull up the database menu and scroll down and select the `Select directories to scan` option.
+
+Press `A` to enter highlighted directories. Once you have you your main music folder highlighted, press `A` again until the folder icon turns into a "play" symbol. Press `DPAD LEFT` to exit and press `A` to save changes, then `A` again to initialize database.
+
+When it finishes, restart Rockbox.
+
+#### Installing Themes:
+
+> [!NOTE]
+> Themes created pre-4.0 may not display correctly even if listed as working with 4.0/dev build.
+
+Download any themes from the `Ipod Classic` section [(here)](https://themes.rockbox.org/index.php?target=ipod6g) and extract. Copy the contents inside the `.rockbox` folder into the `rockbox` directory. 
+
+Make sure to restart Rockbox to fix theme paths before applying a theme.
+
 ## Controls
 
 #### In Menu:
