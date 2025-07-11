@@ -30,7 +30,7 @@ When it finishes, restart Rockbox.
 > [!NOTE]
 > Themes created pre-4.0 may not display correctly even if listed as working with 4.0/dev build.
 
-Download any themes from the `Ipod Classic` section [(here)](https://themes.rockbox.org/index.php?target=ipod6g) and extract. Copy the contents inside the `.rockbox` folder into the `rockbox` directory. 
+Download any themes from the `Ipod Classic` section [here](https://themes.rockbox.org/index.php?target=ipod6g) and extract. Copy the contents inside the `.rockbox` folder into the `rockbox` directory. 
 
 Make sure to restart Rockbox to fix theme paths before applying a theme.
 
@@ -101,7 +101,7 @@ Configure with the following options:
 
 Changes to `Makefile`:
 ```
-export MEMORYSIZE=32
+export MEMORYSIZE=64
 
 export LDOPTS= -lm -ldl -L/usr/lib -lSDL2 -lpthread
 
