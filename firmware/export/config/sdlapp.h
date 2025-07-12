@@ -71,7 +71,7 @@
 #define BATTERY_DEV_NAME "/tmp/rb_charge"
 #define POWER_DEV_NAME "/tmp/rb_usb"
 
-#define HAVE_SCROLLWHEEL
+/* #define HAVE_SCROLLWHEEL */
 #define CONFIG_KEYPAD SDL_PAD
 
 /* Use SDL audio/pcm in a SDL app build */

@@ -65,7 +65,6 @@ static fb_data *lcd_fb;
 #define PF_SORTING_NEXT (LAST_ACTION_PLACEHOLDER + 3)
 #define PF_SORTING_PREV (LAST_ACTION_PLACEHOLDER + 4)
 
-/*
 #if defined(HAVE_SCROLLWHEEL) || CONFIG_KEYPAD == IRIVER_H10_PAD || \
     CONFIG_KEYPAD == MPIO_HD300_PAD
 #if (CONFIG_KEYPAD != IPOD_1G2G_PAD) \
@@ -75,7 +74,6 @@ static fb_data *lcd_fb;
 #define USE_CORE_PREVNEXT
 #endif
 #endif
-*/
 
 #ifndef USE_CORE_PREVNEXT
     /* scrollwheel targets use the wheel, just as they do in lists,
