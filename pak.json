@@ -1,7 +1,7 @@
 {
   "name": "Rockbox",
   "version": "4.0.0",
-  "type": "Media",
+  "type": "TOOL",
   "description": "Rockbox is a free, open-source firmware replacement for digital audio players (DAPs), offering an alternative to the original operating system. It's designed to be highly customizable, with features like advanced equalizers, themes, and support for various file formats.",
   "author": "IncognitoMan",
   "repo_url": "https://github.com/IncognitoMan/rockbox",
