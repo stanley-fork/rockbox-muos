@@ -74,7 +74,9 @@ target/hosted/sdl/lcd-bitmap.c
 target/hosted/sdl/lcd-remote-bitmap.c
 #endif
 target/hosted/sdl/lcd-sdl.c
+#if !defined(RG_NANO) || defined(SIMULATOR)
 target/hosted/sdl/window-sdl.c
+#endif
 target/hosted/sdl/system-sdl.c
 #ifdef HAVE_SDL_THREADS
 target/hosted/sdl/filesystem-sdl.c
@@ -90,7 +92,9 @@ target/hosted/sdl/key_to_touch-sdl.c
 #endif
 #ifdef APPLICATION
 target/hosted/sdl/app/load_code-sdl-app.c
+#if !defined(RG_NANO) && !defined(RETRO_HANDHELD)
 target/hosted/sdl/app/button-application.c
+#endif
 #ifdef WIN32
 target/hosted/filesystem-win32.c
 #else /* !WIN32 */
@@ -224,6 +228,24 @@ target/hosted/samsungypr/ypr1/wmcodec-ypr1.c
 /* Maemo specific files */
 #if (CONFIG_PLATFORM & PLATFORM_MAEMO)
 target/hosted/maemo/maemo-thread.c
+#endif
+
+#if defined(RG_NANO) && !defined(SIMULATOR)
+target/hosted/sysfs.c
+target/hosted/power-linux.c
+target/hosted/backlight-unix.c
+target/hosted/anbernic/instant_play.c
+target/hosted/anbernic/power-rgnano.c
+target/hosted/anbernic/button-rgnano.c
+target/hosted/anbernic/powermgmt-rgnano.c
+#endif /* RG_NANO */
+
+#if defined(RETRO_HANDHELD) && !defined(SIMULATOR)
+target/hosted/sysfs.c
+target/hosted/sdl/retro-handheld/backlight-target.c
+target/hosted/sdl/retro-handheld/power-target.c
+target/hosted/sdl/retro-handheld/button-target.c
+target/hosted/sdl/retro-handheld/powermgmt-target.c
 #endif
 
 /* Common */

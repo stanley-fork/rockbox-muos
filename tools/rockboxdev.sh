@@ -14,6 +14,7 @@ if [ "$system" == "Darwin" ]; then
     READLINK=greadlink
     TMP="$TMPDIR"
     SED=gsed
+    PATH="$HOMEBREW_PREFIX/opt/gnu-sed/libexec/gnubin:${PATH}"
 else
     READLINK=readlink
     parallel=`nproc`
@@ -442,9 +443,13 @@ build() {
 
         # For Apple targets only
         if [ "$system" == "Darwin" ] ; then
-            patch="$patch apple_silicon.patch"
+            patch="$patch apple_silicon.patch apple_silicon-zlib.patch"
             EXTRA_CXXFLAGS="-fbracket-depth=512"
         fi
+    fi
+
+    if [ "$toolname" == "binutils" ] && [ "$system" == "Darwin" ]; then
+        patch="$patch apple_silicon-zlib.patch"
     fi
 
     # create build directory

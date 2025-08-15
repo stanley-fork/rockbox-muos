@@ -223,8 +223,9 @@ struct sound_settings_info
 #include "es9018.h"
 #elif defined(HAVE_ES9218)
 #include "es9218.h"
-#elif (CONFIG_PLATFORM & (PLATFORM_ANDROID | PLATFORM_MAEMO \
-       | PLATFORM_PANDORA | PLATFORM_SDL))
+#elif ((CONFIG_PLATFORM & (PLATFORM_ANDROID | PLATFORM_MAEMO \
+       | PLATFORM_PANDORA | PLATFORM_SDL )) | defined(RG_NANO) \
+       | defined(RETRO_HANDHELD))
 #include "hosted_codec.h"
 #elif defined(DX50)
 #include "codec-dx50.h"

@@ -168,6 +168,12 @@ else # core
   ifneq (,$(findstring pandora, $(MODELNAME)))
 	include $(ROOTDIR)/packaging/pandora/pandora.make
   endif
+  ifneq (,$(findstring rgnano, $(MODELNAME)))
+	include $(ROOTDIR)/packaging/rgnano/rgnano.make
+  endif
+  ifneq (,$(findstring retro-handheld, $(MODELNAME)))
+	include $(ROOTDIR)/packaging/retro-handheld/retro-handheld.make
+  endif
 
 endif # bootloader
 

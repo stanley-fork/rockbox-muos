@@ -166,6 +166,8 @@
 #define SHANLING_Q1_PAD    74
 #define ECHO_R1_PAD        75
 #define SURFANS_F28_PAD    76
+#define RG_NANO_PAD        77
+#define RETRO_HANDHELD_PAD 78
 
 /* CONFIG_REMOTE_KEYPAD */
 #define H100_REMOTE   1
@@ -619,6 +621,10 @@ Lyre prototype 1 */
 #include "config/echor1.h"
 #elif defined(SURFANS_F28)
 #include "config/surfansf28.h"
+#elif defined(RG_NANO)
+#include "config/rgnano.h"
+#elif defined(RETRO_HANDHELD)
+#include "config/retro-handheld.h"
 #else
 //#error "unknown hwardware platform!"
 #endif
@@ -1452,5 +1458,10 @@ Lyre prototype 1 */
 /* null audiohw setting macro for when codec header is included for reasons
    other than audio support */
 #define AUDIOHW_SETTING(name, us, nd, st, minv, maxv, defv, expr...)
+
+/* Trying to enable the setting without the underlying functions doesn't work */
+#if defined(HAVE_LCD_SLEEP_SETTING) && !defined(HAVE_LCD_SLEEP)
+#error "HAVE_LCD_SLEEP_SETTING requires HAVE_LCD_SLEEP"
+#endif
 
 #endif /* __CONFIG_H__ */

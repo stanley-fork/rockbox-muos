@@ -8,7 +8,7 @@
 #
 
 # global CC options for all platforms
-CCOPTS="-W -Wall -Wextra -Wundef -Os -nostdlib -ffreestanding -Wstrict-prototypes -pipe -std=gnu99 -funit-at-a-time -fno-delete-null-pointer-checks -fno-strict-overflow"
+CCOPTS="-W -Wall -Wextra -Wundef -Os -nostdlib -ffreestanding -Wstrict-prototypes -pipe -std=gnu99 -funit-at-a-time -fno-delete-null-pointer-checks -fno-strict-overflow -fno-common"
 
 # LD options for the core
 LDOPTS=""
@@ -281,6 +281,11 @@ simcc () {
    echo "Using UBSan"
    GCCOPTS="$GCCOPTS -fsanitize=undefined -fPIC"
    LDOPTS="$LDOPTS -fsanitize=undefined"
+ fi
+
+ # Clear FUNKEY_SDK SDL1.2 path from LDOPTS
+ if [ "$modelname" = "rgnano" ]; then
+   LDOPTS=""
  fi
 
  # Some linux setups like to warn about unused results. They are correct,
@@ -962,6 +967,65 @@ mipsellinuxcc () {
  # Set up compiler
  gccchoice="4.9.4"
  prefixtools "mipsel-rockbox-linux-gnu-"
+}
+
+rgnanocc () {
+    if [ -z "$FUNKEY_SDK_PATH" ]; then
+        echo "ERROR: You need the FunKey-SDK installed and have the FUNKEY_SDK_PATH"
+        echo "environment variable point to the root directory of the FunKey-SDK."
+        echo "More info at https://wiki.funkey-project.com/wiki/Setting_up_the_SDK"
+        exit
+    fi
+
+    $FUNKEY_SDK_PATH/relocate-sdk.sh
+
+    arch="arm"
+    arch_version="7"
+    arch_profile="classic"
+
+    CC=$FUNKEY_SDK_PATH/bin/arm-funkey-linux-musleabihf-gcc
+    CPP=$FUNKEY_SDK_PATH/bin/arm-funkey-linux-musleabihf-cpp
+    LD=$FUNKEY_SDK_PATH/bin/arm-funkey-linux-musleabihf-ld
+    AR=$FUNKEY_SDK_PATH/bin/arm-funkey-linux-musleabihf-gcc-ar
+    AS=$FUNKEY_SDK_PATH/bin/arm-funkey-linux-musleabihf-as
+    OC=$FUNKEY_SDK_PATH/bin/arm-funkey-linux-musleabihf-objcopy
+    WINDRES=$FUNKEY_SDK_PATH/bin/arm-funkey-linux-musleabihf-windres
+    DLLTOOL=$FUNKEY_SDK_PATH/bin/arm-funkey-linux-musleabihf-dlltool
+    DLLWRAP=$FUNKEY_SDK_PATH/bin/arm-funkey-linux-musleabihf-dllwrap
+    RANLIB=$FUNKEY_SDK_PATH/bin/arm-funkey-linux-musleabihf-gcc-ranlib
+
+    GCCOPTS=`echo $CCOPTS | sed -e s/\ -ffreestanding// -e s/\ -nostdlib// -e s/\ -Wundef//`
+
+    if [ "yes" = "$use_debug" ]; then
+        GCCOPTS=`echo $GCCOPTS | sed -e s/\ -Os/\ -Og/`
+    fi
+
+    GCCOPTS="$GCCOPTS -fno-builtin -g -Wno-unused-result"
+    GCCOPTS="$GCCOPTS -I$FUNKEY_SDK_PATH/arm-funkey-linux-musleabihf/sysroot/usr/include/SDL"
+    GCCOPTS="$GCCOPTS -D_GNU_SOURCE=1 -D_REENTRANT -masm-syntax-unified"
+
+    SHARED_LDFLAGS="-shared"
+    SHARED_CFLAGS="-fPIC -fvisibility=hidden"
+
+    LDOPTS="-lm -ldl $LDOPTS -L$FUNKEY_SDK_PATH/arm-funkey-linux-musleabihf/sysroot/usr/lib -lSDL -lpthread"
+    GLOBAL_LDOPTS="$GLOBAL_LDOPTS -Wl,-z,defs"
+
+    thread_support="HAVE_SDL_THREADS"
+    sdl="$FUNKEY_SDK_PATH/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl-config"
+    rbdir="/FunKey/rockbox"
+}
+
+rhhconf () {
+    LDOPTS="-lm -ldl -L/usr/lib -lSDL2 -lpthread"
+
+    # For some reason SDL_THREADS does not work well... text scroll is slow?
+    # thread_support="HAVE_SDL_THREADS"
+    
+    rbdir="/tmp/rockbox"
+    bindir="/tmp/rockbox"
+    libdir="/tmp/rockbox"
+    sharedir="/tmp/rockbox"
+    lcd_orientation="landscape"
 }
 
 do_bootloader() {
@@ -1708,10 +1772,10 @@ cat <<EOF
                                                  180) rk27xx generic
  ==HiFiMAN==               ==MPIO==
  190) HM-60x               170) HD200            ==HiFi E.T.==
- 191) HM-801               171) HD300            210) MA9
-                                                 211) MA9C
- ==Sony==                  ==Application==       212) MA8
- 219) NWZ-E350 series      200) SDL              213) MA8C
+ 191) HM-801               171) HD300            211) MA9
+                                                 212) MA9C
+ ==Sony==                  ==Application==       213) MA8
+ 219) NWZ-E350 series      200) SDL              214) MA8C
  220) NWZ-E370/E380 series 201) Android
  221) NWZ-E360 series      202) Nokia N8xx       ==IHIFI==
  222) NWZ-E450 series      203) Nokia N900       230) 760
@@ -1720,19 +1784,20 @@ cat <<EOF
  225) NWZ-E580 series      206) Android MIPS     251) 770
  226) NWZ-A10 series       207) Android x86      252) 800
  227) NW-A20 series        208) Samsung YP-R1
- 228) NWZ-A860 series                            ==AgpTek==
- 229) NWZ-S750 series      ==iBasso==            240) Rocker
-                           232) DX50
- ==FiiO==                  233) DX90             ==AIGO==
- 244) M3K Linux                                  245) Eros Q / K
- 246) M3K baremetal        ==xDuoo==             247) Eros Q / K native
-                           241) X3                      (hw1/hw2 bl, all hw rb)
- ==Shanling==              242) X3II             248) Eros Q / K native
- 260) Q1                   243) X20                     (hw3 bl only)
-                                                 249) Eros Q / K native
-                           ==Surfans==                  (hw4 bl only)
- ==Echo project==          280) F28 (WIP)
- 270) Echo R1 (WIP)
+ 228) NWZ-A860 series      209) Anbernic RG Nano ==AgpTek==
+ 229) NWZ-S750 series      210) Retro Handhelds  240) Rocker
+
+ ==FiiO==                  ==iBasso==            ==AIGO==
+ 244) M3K Linux            232) DX50             245) Eros Q / K
+ 246) M3K baremetal        233) DX90             247) Eros Q / K native
+                                                        (hw1/hw2 bl, all hw rb)
+ ==Shanling==              ==xDuoo==             248) Eros Q / K native
+ 260) Q1                   241) X3                      (hw3 bl only)
+                           242) X3II             249) Eros Q / K native
+                           243) X20                     (hw4 bl only)
+ ==Echo project==
+ 270) Echo R1 (WIP)        ==Surfans==
+                           280) F28 (WIP)
 EOF
 
   buildfor=`input`;
@@ -3600,7 +3665,54 @@ fi
     t_model="ypr1"
     ;;
 
-   210|hifietma9)
+   209|rgnano)
+    target_id=121
+    application="yes"
+    modelname="rgnano"
+    app_type="sdl-app"
+    target="RG_NANO"
+    memory=32
+    uname=`uname`
+    rgnanocc
+    tool="cp "
+    boottool="cp "
+    bmp2rb_mono="$rootdir/tools/bmp2rb -f 0"
+    bmp2rb_native="$rootdir/tools/bmp2rb -f 9"
+    output="rockbox"
+    bootoutput="rockbox"
+    appextra="recorder:gui"
+    plugins="yes"
+    t_cpu="hosted"
+    t_manufacturer="anbernic"
+    t_model="rgnano"
+    ;;
+
+   210|retro-handheld)
+    target_id=122
+    application="yes"
+    modelname="retro-handheld"
+    app_type="sdl-app"
+    target="RETRO_HANDHELD"
+    memory=64
+    uname=`uname`
+    #retrohandheldcc
+    simcc "sdl-app"
+    rhhconf
+    tool="cp "
+    boottool="cp "
+    bmp2rb_mono="$rootdir/tools/bmp2rb -f 0"
+    bmp2rb_native="$rootdir/tools/bmp2rb -f 9"
+    output="rockbox"
+    bootoutput="rockbox"
+    appextra="recorder:gui"
+    plugins="yes"
+    # architecture, manufacturer and model for the target-tree build
+    t_cpu="hosted"
+    t_manufacturer="sdl"
+    t_model="retro-handheld"
+    ;;
+
+   211|hifietma9)
     target_id=83
     modelname="hifietma9"
     target="MA9"
@@ -3622,7 +3734,7 @@ fi
     t_model="ma"
     ;;
 
-   211|hifietma9c)
+   212|hifietma9c)
     target_id=84
     modelname="hifietma9c"
     target="MA9C"
@@ -3644,7 +3756,7 @@ fi
     t_model="ma"
     ;;
 
-   212|hifietma8)
+   213|hifietma8)
     target_id=85
     modelname="hifietma8"
     target="MA8"
@@ -3666,7 +3778,7 @@ fi
     t_model="ma"
     ;;
 
-   213|hifietma8c)
+   214|hifietma8c)
     target_id=91
     modelname="hifietma8c"
     target="MA8C"
@@ -4518,6 +4630,7 @@ fi
       simcc "checkwps"
       toolset='';
       GCCOPTS='';
+      LDOPTS='';
       rbdir='.'
       extradefines="$extradefines  -DDEBUG"
       appsdir='$(ROOTDIR)/tools/checkwps';
@@ -5055,6 +5168,7 @@ export LCDORIENTATION=${lcd_orientation}
 export ANDROID_ARCH=${ANDROID_ARCH}
 export ANDROID_NDK_PATH=${ANDROID_NDK_PATH}
 export ANDROID_SDK_PATH=${ANDROID_SDK_PATH}
+export FUNKEY_SDK_PATH=${FUNKEY_SDK_PATH}
 export ANDROID_PLATFORM_VERSION=${ANDROID_PLATFORM_VERSION}
 export TOOLSET=${toolset}
 export PIPER_MODEL_DIR=${PIPER_MODEL_DIR}

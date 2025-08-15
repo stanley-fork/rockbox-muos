@@ -484,6 +484,23 @@ static void setoptions (void)
         options.SELECT  = (BUTTON_PLAY|BUTTON_MENU);
         options.MENU    = BUTTON_MENU;
 
+#elif CONFIG_KEYPAD == RG_NANO_PAD
+        options.UP      = BUTTON_UP;
+        options.DOWN    = BUTTON_DOWN;
+        options.A       = BUTTON_A;
+        options.B       = BUTTON_B;
+        options.START   = BUTTON_START;
+        options.SELECT  = BUTTON_FN;
+        options.MENU    = BUTTON_X;
+
+#elif CONFIG_KEYPAD == RETRO_HANDHELD_PAD
+        options.UP      = BUTTON_UP;
+        options.DOWN    = BUTTON_DOWN;
+        options.A       = BUTTON_A;
+        options.B       = BUTTON_B;
+        options.START   = BUTTON_START;
+        options.SELECT  = BUTTON_SELECT;
+        options.MENU    = BUTTON_X;
 
 #else
 #error No Keymap Defined!
