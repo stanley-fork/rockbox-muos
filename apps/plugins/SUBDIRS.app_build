@@ -6,19 +6,19 @@
 /* For all targets with a bitmap display and a touchscreen
  * In fact, most of the plugins aren't supposed to be used on a touch(mouse) device
  */
-
-#ifdef HAVE_TAGCACHE
-pictureflow
-tagcache
-#endif
+lua
+lua_scripts
 
 #if PLUGIN_BUFFER_SIZE > 0x20000
 fft
 #endif
 
-shortcuts
-text_viewer
-imageviewer
+reversi
+
+#ifdef HAVE_TAGCACHE
+pictureflow
+tagcache
+#endif
 
 /* For all the swcodec targets */
 #if MEMORYSIZE > 2 /* we need a lot of RAM for instruments */

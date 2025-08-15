@@ -47,7 +47,7 @@ GREY_INFO_STRUCT
 static const struct button_mapping *plugin_contexts[] = { pla_main_ctx };
 #define FFT_PREV_GRAPH      PLA_LEFT
 #define FFT_NEXT_GRAPH      PLA_RIGHT
-#define FFT_ORIENTATION     PLA_UP
+#define FFT_ORIENTATION     PLA_CANCEL
 #define FFT_WINDOW          PLA_SELECT_REL
 #define FFT_AMP_SCALE       PLA_SELECT_REPEAT
 #define FFT_AMP_SCALE_PRE   PLA_SELECT
@@ -59,7 +59,7 @@ static const struct button_mapping *plugin_contexts[] = { pla_main_ctx };
     || (CONFIG_KEYPAD == IPOD_4G_PAD)
 #define FFT_QUIT            PLA_UP
 #else
-#define FFT_QUIT            PLA_CANCEL
+#define FFT_QUIT            PLA_EXIT
 #endif
 
 #ifdef HAVE_LCD_COLOR

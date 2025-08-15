@@ -179,18 +179,10 @@ static const char* _get_user_file_path(const char *path,
         return NULL;
 #endif
 
-    printf("Original: ");
-    printf(path);
-    printf("\n");
-
     /* always return the replacement buffer (pointing to $HOME) if
      * write access is needed */
     if (flags & NEED_WRITE)
-        if (strstr(path, "/themes/") != NULL) {
-            ret = path;
-        } else {
-            ret = buf;
-        }
+        ret = buf;
     else if (os_file_exists(buf))
         ret = buf;
 
@@ -202,10 +194,6 @@ static const char* _get_user_file_path(const char *path,
         if (os_file_exists(buf))
             ret = buf;
     }
-
-    printf("Replaced: ");
-    printf(ret);
-    printf("\n");
 
     return ret;
 }

@@ -66,17 +66,17 @@
 #else /* APPLICATION */
 
 #define HOME_DIR "<HOME>" /* replaced at runtime */
-/* #define HAVE_SPECIAL_DIRS */
+#define HAVE_SPECIAL_DIRS
 
-#define PLUGIN_DIR          ROCKBOX_DIR "/rocks"
+#define PLUGIN_DIR          ROCKBOX_LIBRARY_PATH "/rockbox/rocks"
 #if (CONFIG_PLATFORM & PLATFORM_ANDROID)
 #define CODECS_DIR          ROCKBOX_BINARY_PATH
 #else
-#define CODECS_DIR          ROCKBOX_DIR "/codecs"
+#define CODECS_DIR          ROCKBOX_LIBRARY_PATH "/rockbox/codecs"
 #endif
 
 #define REC_BASE_DIR        HOME_DIR "/Recordings"
-#define PLAYLIST_CATALOG_DEFAULT_DIR ROCKBOX_DIR "/playlists"
+#define PLAYLIST_CATALOG_DEFAULT_DIR HOME_DIR "/Playlists"
 #endif /* !APPLICATION || SAMSUNG_YPR0 */
 
 #define LANG_DIR            ROCKBOX_DIR "/langs"
