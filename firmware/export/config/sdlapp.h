@@ -51,22 +51,27 @@
 /* define this to indicate your device's keypad */
 #define HAVE_TOUCHSCREEN
 #define HAVE_BUTTON_DATA
+#define HAS_BUTTON_HOLD
 
 /* define this if you have a real-time clock */
 #define CONFIG_RTC APPLICATION
 
 /* The number of bytes reserved for loadable codecs */
-#define CODEC_SIZE 0x100000
+#define CODEC_SIZE 0x400000
 
 /* The number of bytes reserved for loadable plugins */
-#define PLUGIN_BUFFER_SIZE 0x80000
+#define PLUGIN_BUFFER_SIZE 0x800000
 
 #define AB_REPEAT_ENABLE
 
+#define CONFIG_BATTERY_MEASURE PERCENTAGE_MEASURE
 
+#define CONFIG_CHARGING CHARGING_MONITOR
+#define HAVE_POWEROFF_WHILE_CHARGING
+#define BATTERY_DEV_NAME "/tmp/rb_charge"
+#define POWER_DEV_NAME "/tmp/rb_usb"
 
-
-#define HAVE_SCROLLWHEEL
+/* #define HAVE_SCROLLWHEEL */
 #define CONFIG_KEYPAD SDL_PAD
 
 /* Use SDL audio/pcm in a SDL app build */

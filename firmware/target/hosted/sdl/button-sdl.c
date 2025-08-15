@@ -586,6 +586,7 @@ static void button_event(int key, bool pressed)
         return;
 #endif
 #endif
+
 #if (CONFIG_PLATFORM & PLATFORM_PANDORA) || defined(RG_NANO) || defined(RETRO_HANDHELD)
 #if defined(RG_NANO)
     case SDLK_q:

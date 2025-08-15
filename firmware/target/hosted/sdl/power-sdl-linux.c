@@ -6,7 +6,7 @@
  *   Firmware   |____|_  /\____/ \___  >__|_ \|___  /\____/__/\_ \
  *                     \/            \/     \/    \/            \/
  *
- * Copyright (C) 2021 by Solomon Peachy
+ * Copyright (C) 2017 by Marcin Bukat
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -24,44 +24,18 @@
 #include <stdio.h>
 
 #include "system.h"
+#include "power-sdl-linux.h"
 #include "power.h"
 #include "panic.h"
 #include "sysfs.h"
 
-#include "tick.h"
-#ifdef FIIO_M3K_LINUX
-#include "usb.h"
-#endif
+const char * const sysfs_bat_level =
+    "/tmp/rb_batt";
 
-#define BATTERY_STATUS_PATH BATTERY_DEV_NAME
-#define POWER_STATUS_PATH POWER_DEV_NAME
-
-#ifdef BATTERY_DEV_NAME
-/* We get called multiple times per tick, let's cut that back! */
-static long last_tick = 0;
-static bool last_power = false;
-
-bool charging_state(void)
+unsigned int sdl_linux_power_get_battery_capacity(void)
 {
-    if ((current_tick - last_tick) > HZ/2 ) {
-        char buf[12] = {0};
-        sysfs_get_string(BATTERY_STATUS_PATH, buf, sizeof(buf));
-
-        last_tick = current_tick;
-        last_power = (strncmp(buf, "Charging", 8) == 0);
-    }
-    return last_power;
-}
-#endif
-
-unsigned int power_input_status(void)
-{
-    int present = 0;
-    sysfs_get_int(POWER_STATUS_PATH, &present);
-
-#ifdef FIIO_M3K_LINUX
-    usb_enable(present ? true : false);
-#endif
-
-    return present ? POWER_INPUT_USB_CHARGER : POWER_INPUT_NONE;
+    int battery_level;
+    sysfs_get_int(sysfs_bat_level, &battery_level);
+    
+    return battery_level;
 }

@@ -3,20 +3,46 @@
 #include "SOURCES"
 #else
 /* plugins common to all models */
-chopper.c
-clix.c
+
+/* GAMES */
+
+/* DEMOS */
 credits.c
-properties.c
-random_folder_advance_config.c
+demystify.c
+fire.c
+fireworks.c
+matrix.c
+mosaique.c
+oscilloscope.c
+plasma.c
+pictureflow.c
+rocklife.c
+starfield.c
+vu_meter.c
+
+/* VIEWERS */
 search.c
 sort.c
 theme_remove.c
 vbrfix.c
+pitch_screen.c
 view_text.c
-#if PLUGIN_BUFFER_SIZE >= 0x80000
-boomshine.lua
-stopwatch.lua
-#endif
+
+/* APPS */
+
+main_menu_config.c
+random_folder_advance_config.c
+open_plugins.c
+
+/* HAVE_TAGCACHE related */
+db_folder_select.c
+tagcache/tagcache.c
+
+/* Unknown but probably important? */
+cue_playlist.c
+file_picker.c
+md5sum.c
+properties.c
 
 
 #ifdef HAVE_TEST_PLUGINS /* enable in advanced build options */
