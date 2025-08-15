@@ -61,7 +61,7 @@
 #include "pcm_mixer.h"
 #endif
 
-#if defined(SIMULATOR) || defined(SDLAPP)
+#if defined(SIMULATOR) || defined(SDLAPP) || defined(RETRO_HANDHELD)
 #include <strings.h>  /* For strncasecmp() */
 #endif
 

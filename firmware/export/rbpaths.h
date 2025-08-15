@@ -57,7 +57,7 @@
 #define REC_BASE_DIR        HOME_DIR "Recordings"
 #define PLAYLIST_CATALOG_DEFAULT_DIR HOME_DIR "Playlists"
 
-#elif defined(RG_NANO)
+#elif defined(RG_NANO) || defined(RETRO_HANDHELD)
 #define HOME_DIR            ROCKBOX_DIR
 #define PLUGIN_DIR          ROCKBOX_DIR "/rocks"
 #define CODECS_DIR          ROCKBOX_DIR "/codecs"

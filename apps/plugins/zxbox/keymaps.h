@@ -301,7 +301,7 @@
 #define ZX_UP           BUTTON_UP
 #define ZX_DOWN         BUTTON_DOWN
 
-#elif CONFIG_KEYPAD == RG_NANO_PAD
+#elif CONFIG_KEYPAD == RG_NANO_PAD || CONFIG_KEYPAD == RETRO_HANDHELD_PAD
 #define ZX_UP           BUTTON_UP
 #define ZX_DOWN         BUTTON_DOWN
 #define ZX_LEFT         BUTTON_LEFT

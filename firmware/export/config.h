@@ -167,6 +167,7 @@
 #define ECHO_R1_PAD        75
 #define SURFANS_F28_PAD    76
 #define RG_NANO_PAD        77
+#define RETRO_HANDHELD_PAD 78
 
 /* CONFIG_REMOTE_KEYPAD */
 #define H100_REMOTE   1
@@ -622,6 +623,8 @@ Lyre prototype 1 */
 #include "config/surfansf28.h"
 #elif defined(RG_NANO)
 #include "config/rgnano.h"
+#elif defined(RETRO_HANDHELD)
+#include "config/retro-handheld.h"
 #else
 //#error "unknown hwardware platform!"
 #endif

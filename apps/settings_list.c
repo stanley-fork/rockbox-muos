@@ -1140,7 +1140,7 @@ const struct settings_list settings[] = {
         ID2P(LANG_24_HOUR_CLOCK), ID2P(LANG_12_HOUR_CLOCK)),
     OFFON_SETTING(0,show_icons, LANG_SHOW_ICONS ,true,"show icons", NULL),
     /* system */
-    INT_SETTING(F_TIME_SETTING, poweroff, LANG_POWEROFF_IDLE, 10,
+    INT_SETTING(F_TIME_SETTING, poweroff, LANG_POWEROFF_IDLE, 0,
                 "idle poweroff", UNIT_MIN, 0,60,1,
                 formatter_time_unit_0_is_off, getlang_time_unit_0_is_off,
                 set_poweroff_timeout),

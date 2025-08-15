@@ -373,7 +373,7 @@ CONFIG_KEYPAD == SANSA_M200_PAD
 #define UP          BUTTON_UP
 #define DOWN        BUTTON_DOWN
 
-#elif CONFIG_KEYPAD == RG_NANO_PAD
+#elif CONFIG_KEYPAD == RG_NANO_PAD || CONFIG_KEYPAD == RETRO_HANDHELD_PAD
 #define CONTINUE_TEXT   "A To Continue"
 #define QUIT            BUTTON_START
 #define LEFT            BUTTON_LEFT

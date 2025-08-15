@@ -1,0 +1,16 @@
+{
+  "name": "Rockbox",
+  "version": "4.0.76",
+  "type": "TOOL",
+  "description": "Rockbox is a free, open-source firmware replacement for digital audio players (DAPs), offering an alternative to the original operating system. It's designed to be highly customizable, with features like advanced equalizers, themes, and support for various file formats.",
+  "author": "IncognitoMan",
+  "repo_url": "https://github.com/IncognitoMan/rockbox",
+  "release_filename": "Rockbox.pak.zip",
+  "changelog": {
+    "4.0.0": "Initial Release",
+    "4.0.76": "Added backlight settings and bluetooth media controls, updated keymap and many 'small' fixes."
+  },
+  "platforms": [
+    "tg5040"
+  ]
+}

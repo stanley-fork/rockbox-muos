@@ -88,7 +88,7 @@ target/hosted/sdl/key_to_touch-sdl.c
 #endif
 #ifdef APPLICATION
 target/hosted/sdl/app/load_code-sdl-app.c
-#ifndef RG_NANO
+#if !defined(RG_NANO) && !defined(RETRO_HANDHELD)
 target/hosted/sdl/app/button-application.c
 #endif
 #ifdef WIN32
@@ -235,6 +235,14 @@ target/hosted/anbernic/power-rgnano.c
 target/hosted/anbernic/button-rgnano.c
 target/hosted/anbernic/powermgmt-rgnano.c
 #endif /* RG_NANO */
+
+#if defined(RETRO_HANDHELD) && !defined(SIMULATOR)
+target/hosted/sysfs.c
+target/hosted/sdl/retro-handheld/backlight-target.c
+target/hosted/sdl/retro-handheld/power-target.c
+target/hosted/sdl/retro-handheld/button-target.c
+target/hosted/sdl/retro-handheld/powermgmt-target.c
+#endif
 
 /* Common */
 #ifndef BOOTLOADER

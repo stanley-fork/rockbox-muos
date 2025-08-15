@@ -89,6 +89,15 @@
 #define XRICK_BTN_PAUSE    BUTTON_FFWD
 #define XRICK_BTN_MENU     BUTTON_REW
 
+#elif (CONFIG_KEYPAD == RETRO_HANDHELD_PAD)
+#define XRICK_BTN_UP       BUTTON_UP
+#define XRICK_BTN_DOWN     BUTTON_DOWN
+#define XRICK_BTN_LEFT     BUTTON_LEFT
+#define XRICK_BTN_RIGHT    BUTTON_RIGHT
+#define XRICK_BTN_FIRE     BUTTON_A
+#define XRICK_BTN_PAUSE    BUTTON_START
+#define XRICK_BTN_MENU     BUTTON_B
+
 /* place other keypad mappings here
 #elif CONFIG_KEYPAD ==...
 #define XRICK_BTN...
