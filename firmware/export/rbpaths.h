@@ -55,7 +55,7 @@
 #define RB_ROOT_VOL_HIDDEN(v)   (IF_MV_VOL(v) == 0)
 #define RB_ROOT_CONTENTS_DIR    "/" IF_MV("<0>")
 #define REC_BASE_DIR        HOME_DIR "Recordings"
-#define PLAYLIST_CATALOG_DEFAULT_DIR ROCKBOX_DIR "playlists"
+#define PLAYLIST_CATALOG_DEFAULT_DIR HOME_DIR "Playlists"
 
 #elif defined(RG_NANO) || defined(RETRO_HANDHELD)
 #define HOME_DIR            ROCKBOX_DIR
