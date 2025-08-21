@@ -22,6 +22,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "system.h"
 #include "power-target.h"
@@ -31,18 +32,25 @@
 
 #include "tick.h"
 
-#define BATTERY_STATUS_PATH BATTERY_DEV_NAME
-#define POWER_STATUS_PATH POWER_DEV_NAME
-#define CAPACITY_STATUS_PATH CAPACITY_DEV_NAME
 /* We get called multiple times per tick, let's cut that back! */
 static long last_tick = 0;
 static bool last_power = false;
+
+static char* get_path(const char *env_key)
+{
+    char *p = getenv(env_key);
+    return (p && *p) ? p : NULL;
+}
 
 bool charging_state(void)
 {
     if ((current_tick - last_tick) > HZ/2 ) {
         char buf[12] = {0};
-        sysfs_get_string(BATTERY_STATUS_PATH, buf, sizeof(buf));
+        
+        char *path = get_path("BATTERY_STATUS");
+
+        if (path)
+            sysfs_get_string(path, buf, sizeof(buf));
 
         last_tick = current_tick;
         last_power = (strncmp(buf, "Charging", 8) == 0);
@@ -53,7 +61,11 @@ bool charging_state(void)
 unsigned int power_input_status(void)
 {
     int present = 0;
-    sysfs_get_int(POWER_STATUS_PATH, &present);
+    
+    char *path = get_path("POWER_STATUS");
+
+    if (path)
+        sysfs_get_int(path, &present);
 
     return present ? POWER_INPUT_USB_CHARGER : POWER_INPUT_NONE;
 }
@@ -61,7 +73,11 @@ unsigned int power_input_status(void)
 unsigned int power_get_battery_capacity(void)
 {
     int battery_level;
-    sysfs_get_int(CAPACITY_STATUS_PATH, &battery_level);
+
+    char *path = get_path("CAPACITY_STATUS");
+
+    if (path)
+        sysfs_get_int(path, &battery_level);
 
     return battery_level;
 }

@@ -2167,7 +2167,7 @@ const struct settings_list settings[] = {
 
 #ifdef HAVE_QUICKSCREEN
    CUSTOM_SETTING(0, qs_items[QUICKSCREEN_TOP], LANG_TOP_QS_ITEM,
-                  NULL, "qs top",
+                  &global_settings.brightness, "qs top",
                   qs_load_from_cfg, qs_write_to_cfg,
                   qs_is_changed, qs_set_default),
    CUSTOM_SETTING(0, qs_items[QUICKSCREEN_LEFT], LANG_LEFT_QS_ITEM,
@@ -2179,7 +2179,7 @@ const struct settings_list settings[] = {
                   qs_load_from_cfg, qs_write_to_cfg,
                   qs_is_changed, qs_set_default),
    CUSTOM_SETTING(0, qs_items[QUICKSCREEN_BOTTOM], LANG_BOTTOM_QS_ITEM,
-                  NULL, "qs bottom",
+                  &global_settings.brightness, "qs bottom",
                   qs_load_from_cfg, qs_write_to_cfg,
                   qs_is_changed, qs_set_default),
    OFFON_SETTING(0, shortcuts_replaces_qs, LANG_USE_SHORTCUTS_INSTEAD_OF_QS,

@@ -65,11 +65,6 @@
 #define CONFIG_CHARGING CHARGING_MONITOR
 #define HAVE_POWEROFF_WHILE_CHARGING
 
-#define BATTERY_DEV_NAME "/tmp/rb_charge"
-#define POWER_DEV_NAME "/tmp/rb_usb"
-#define CAPACITY_DEV_NAME "/tmp/rb_batt"
-
-
 /* Define this for LCD backlight available */
 #define HAVE_BACKLIGHT
 #define HAVE_BACKLIGHT_BRIGHTNESS

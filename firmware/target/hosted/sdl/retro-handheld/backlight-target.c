@@ -25,26 +25,46 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include "config.h"
 #include "backlight-target.h"
 #include "sysfs.h"
 #include "panic.h"
 #include "lcd.h"
 
-/* command, "setbl" */
-static const char * const sysfs_bl_command = "/sys/kernel/debug/dispdbg/command";
+typedef enum {
+  BL_TYPE1 = 0,
+  BL_TYPE2 = 1,
+} backlight_t;
 
-/* name, "lcd0" */
-static const char * const sysfs_bl_name = "/sys/kernel/debug/dispdbg/name";
+static char* get_bl_env(const char *env_key)
+{
+    char *p = getenv(env_key);
+    return (p && *p) ? p : NULL;
+}
 
-/* brightness, 0-255 - 0 is off */
-static const char * const sysfs_bl_param = "/sys/kernel/debug/dispdbg/param";
+static void set_type1_brightness(int value) {
+  sysfs_set_string(get_bl_env("SYSFS_BL_COMMAND"), get_bl_env("BL_COMMAND"));
+  sysfs_set_string(get_bl_env("SYSFS_BL_NAME"), get_bl_env("BL_NAME"));
+  sysfs_set_int(get_bl_env("SYSFS_BL_PARAM"), value);
+  sysfs_set_int(get_bl_env("SYSFS_BL_START"), 1);
+}
 
-/* start, to execute display command - 1 */
-static const char * const sysfs_bl_start = "/sys/kernel/debug/dispdbg/start";
+static void set_type2_brightness(int value) {
+  sysfs_set_int(get_bl_env("SYSFS_BL_BRIGHTNESS"), value);
+}
 
-static char * bl_command = "setbl";
-static char * bl_name = "lcd0";
+
+static backlight_t get_type(void)
+{
+    char *bl_type = getenv("BL_TYPE");
+    if (!bl_type) return BL_TYPE1;
+
+    if (strcmp(bl_type, "TYPE1") == 0) return BL_TYPE1;
+    if (strcmp(bl_type, "TYPE2") == 0) return BL_TYPE2;
+
+    return BL_TYPE1;
+}
 
 bool backlight_hw_init(void)
 {
@@ -67,21 +87,25 @@ void backlight_hw_on(void)
 #ifdef HAVE_LCD_ENABLE
         lcd_enable(true);
 #endif
-        sysfs_set_string(sysfs_bl_command, bl_command);
-        sysfs_set_string(sysfs_bl_name, bl_name);
-        sysfs_set_int(sysfs_bl_param, 15);
-        sysfs_set_int(sysfs_bl_start, 1);
-	last_bl = 1;
+    
+    switch (get_type()) {
+        case BL_TYPE1: set_type1_brightness(15); break;        
+        case BL_TYPE2: sysfs_set_int(get_bl_env("SYSFS_BL_POWER"), 0); break;
+    }
+
+	  last_bl = 1;
     }
 }
 
 void backlight_hw_off(void)
 {
     if (last_bl != 0) {
-      sysfs_set_string(sysfs_bl_command, bl_command);
-      sysfs_set_string(sysfs_bl_name, bl_name);
-      sysfs_set_int(sysfs_bl_param, 0);
-      sysfs_set_int(sysfs_bl_start, 1);
+
+    switch (get_type()) {
+        case BL_TYPE1: set_type1_brightness(0); break;        
+        case BL_TYPE2: sysfs_set_int(get_bl_env("SYSFS_BL_POWER"), 1); break;
+    }
+
 #ifdef HAVE_LCD_ENABLE
         lcd_enable(false);
 #endif
@@ -96,8 +120,10 @@ void backlight_hw_brightness(int brightness)
         brightness = MAX_BRIGHTNESS_SETTING;
     if (brightness < MIN_BRIGHTNESS_SETTING)
         brightness = MIN_BRIGHTNESS_SETTING;
-    sysfs_set_string(sysfs_bl_command, bl_command);
-    sysfs_set_string(sysfs_bl_name, bl_name);
-    sysfs_set_int(sysfs_bl_param, brightness * 15);
-    sysfs_set_int(sysfs_bl_start, 1);
+
+    switch (get_type()) {
+          case BL_TYPE1: set_type1_brightness(brightness * 15); break;        
+          case BL_TYPE2: set_type2_brightness(brightness * 15); break;
+    }
+
 }

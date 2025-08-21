@@ -21,7 +21,8 @@ rhbuild:
 	## Permissions
 	chmod +x $(RH_ROCKBOX_DIR)/rockbox
 	## Copy licenses over
-	cp -R $(RH_PACK_DIR)/licenses $(RH_ROCKBOX_DIR) 
+	cp -R $(RH_PACK_DIR)/licenses $(RH_ROCKBOX_DIR)
+	cp -R $(RH_PACK_DIR)/systems $(RH_ROCKBOX_DIR)
 	rm -rf $(RH_PKG_DIR)/build
 
 muos: 
