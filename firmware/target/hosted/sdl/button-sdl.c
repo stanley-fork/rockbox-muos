@@ -586,8 +586,12 @@ static void button_event(int key, bool pressed)
         return;
 #endif
 #endif
-#if (CONFIG_PLATFORM & PLATFORM_PANDORA)
-    case SDLK_LCTRL:
+#if (CONFIG_PLATFORM & PLATFORM_PANDORA) || defined(RETRO_HANDHELD)
+    #if defined(RETRO_HANDHELD)
+        case SDLK_x:
+    #else
+        case SDLK_LCTRL:
+    #endif
         /* Will post SDL_USEREVENT in shutdown_hw() if successful. */
         sys_poweroff();
         break;
@@ -596,11 +600,6 @@ static void button_event(int key, bool pressed)
     case SDLK_q:
         /* Use reboot to exit without shutting down */
         sys_reboot();
-        break;
-#endif
-#ifdef RETRO_HANDHELD
-    case SDLK_x:
-        sys_poweroff();
         break;
 #endif
 #ifdef HAS_BUTTON_HOLD
