@@ -20,6 +20,7 @@ sdl
 puzzles
 #endif
 
+#ifndef RETRO_HANDHELD
 #if    (CONFIG_KEYPAD != SANSA_M200_PAD) /* not enough buttons */ \
     && (CONFIG_KEYPAD != HM60X_PAD) /* not enough buttons */ \
     && (LCD_PIXELFORMAT != HORIZONTAL_PACKING) /* TODO */ \
@@ -27,6 +28,7 @@ puzzles
     && (defined(HAVE_LCD_COLOR) || (LCD_HEIGHT == 64) && (LCD_DEPTH == 1) || \
                                    (LCD_HEIGHT == 128) && (LCD_DEPTH == 2))
 rockboy
+#endif
 #endif
 
 #if defined(HAVE_TAGCACHE)
@@ -62,10 +64,12 @@ zxbox
 pacbox
 #endif
 
+#ifndef RETRO_HANDHELD
 #if (defined(HAVE_LCD_COLOR) || defined(MROBE_100) || defined(SANSA_CLIPPLUS) \
     || defined(SANSA_CLIPV2) || (LCD_DEPTH == 2)) \
     && (MEMORYSIZE > 2 && !defined(RB_PROFILE))
 doom
+#endif
 #endif
 
 #if MEMORYSIZE > 2 /* we need a lot of RAM for instruments */

@@ -2786,7 +2786,7 @@ static const struct {
 #ifdef __linux__
         { "View CPU stats", dbg_cpuinfo },
 #endif
-#if (CONFIG_BATTERY_MEASURE != 0) && !defined(SIMULATOR)
+#if (CONFIG_BATTERY_MEASURE != 0) && !defined(SIMULATOR) || !defined(RETRO_HANDHELD)
         { "View battery", view_battery },
 #endif
 #ifndef APPLICATION

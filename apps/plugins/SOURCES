@@ -41,7 +41,9 @@ theme_remove.c
 vbrfix.c
 md5sum.c
 dice.c
+#ifndef RETRO_HANDHELD 
 disktidy.c
+#endif
 flipit.c
 shopper.c
 resistor.c
@@ -117,7 +119,9 @@ metronome.c
 
 /* Lua needs at least 160 KB to work in */
 #if PLUGIN_BUFFER_SIZE >= 0x80000
+#ifndef RETRO_HANDHELD
 boomshine.lua
+#endif
 picross.lua
 #ifdef HAVE_LCD_COLOR
 pixel-painter.lua
