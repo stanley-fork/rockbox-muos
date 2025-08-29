@@ -19,9 +19,9 @@ This is a fork of Rockbox with a few changes to make it compatible with various 
 
 #### Setting Database Scan Directory
 
-Would ***highly*** suggest setting database scan directory before scanning/building the database. Have `Database` highlighted, press and hold `A` button to pull up the database menu and scroll down and select the `Select directories to scan` option.
+Would ***highly*** suggest setting database scan directory before scanning/building the database. Have `Database` highlighted, press `START` button to pull up the database menu and scroll down and select the `Select directories to scan` option.
 
-Press `A` to enter highlighted directories. Once you have you your main music folder highlighted, press `A` again until the folder icon turns into a "play" symbol. Press `DPAD LEFT` to exit and press `A` to save changes, then `A` again to initialize database.
+Press `A` to enter highlighted directories. Once you have you your main music folder highlighted, press `A` again until the folder icon turns into a "play" symbol. Press `B` to exit and press `A` to save changes, then `A` again to initialize database.
 
 When it finishes, restart Rockbox.
 
@@ -36,48 +36,51 @@ Make sure to restart Rockbox to fix theme paths before applying a theme.
 
 ## Controls
 
+> [!NOTE]
+> Controls more or less follow the RG Nano port of Rockbox, see [the manual from the dev builds](https://download.rockbox.org/manual/rockbox-rgnano.pdf) for more info as well as plugin controls.
+
 #### In Menu:
 
-|    Button    |        Action       |
-|:------------:|:-------------------:|
-|    DPAD UP   |       Move UP       |
-|   DPAD DOWN  |      Move DOWN      |
-|   DPAD LEFT  |       Go Back       |
-| DPAD RIGHT/A |     Enter/Accept    |
-|    Hold A    |     Context Menu    |
-|    Press B   |      Main Menu      |
-|    Press X   |  WPS/Resume Playing |
-|    Press Y   |  Pause/Stop Playing |
-|      L1      |   Lock/Hold Input   |
-|      R1      | Shuffle/Repeat Menu |
-|     L2+R2    |   Shutdown (Exit)   |
+|   Button   |       Action      |
+|:----------:|:-----------------:|
+|   DPAD UP  |      Move UP      |
+|  DPAD DOWN |     Move DOWN     |
+|  DPAD LEFT |      Page UP      |
+| DPAD Right |     Page DOWN     |
+|   Press A  |    Enter/Accept   |
+|   Press B  |        Back       |
+|   Press X  |        WPS        |
+|   Press Y  |     Main Menu     |
+|    START   |    Context Menu   |
+|   Hold L1  |   Stop Playback   |
+|     L1     |  Hotkey Function  |
+|     R1     | Quick Screen Menu |
+|    L2+R2   |    Lock / Hold    |
+|  START+R2  |  Shutdown (Exit)  |
 
 #### In WPS (What's Playing Screen):
 
 > [!IMPORTANT]
 > Volume controls are separate from system volume.
 
-|      Button     |           Action           |
-|:---------------:|:--------------------------:|
-|     DPAD UP     |          Volume UP         |
-|    DPAD DOWN    |         Volume Down        |
-|    DPAD LEFT    | Restart Song/Previous Song |
-|  Hold DPAD LEFT |           Rewind           |
-|    DPAD RIGHT   |          Next Song         |
-| Hold DPAD RIGHT |        Fast-Forward        |
-|     Press A     |         Play Pause         |
-|      Hold A     |     Pause and Main Menu    |
-|     Press B     |          Main Menu         |
-|     Press X     |        File Browser        |
-|      Hold X     |        Context Menu        |
-|     Press Y     |          Playlist          |
-|      Hold Y     |         Track Info         |
-|        L1       |       Lock/Hold Input      |
-|        R1       |     Shuffle/Repeat Menu    |
-|     Hold R1     |         Pitch Menu         |
-
-> [!NOTE]
-> For detailed info on plugin controls [please check the wiki section](https://github.com/IncognitoMan/rockbox/wiki).
+|      Button     |                        Action                       |
+|:---------------:|:---------------------------------------------------:|
+|     DPAD UP     |                      Volume UP                      |
+|    DPAD DOWN    |                     Volume Down                     |
+|    DPAD LEFT    |             Restart Song / Previous Song            |
+|  Hold DPAD LEFT |                        Rewind                       |
+|    DPAD RIGHT   |                      Next Song                      |
+| Hold DPAD RIGHT |                     Fast-Forward                    |
+|     Press A     |                     Play / Pause                    |
+|      Hold A     |                 Pause and Main Menu                 |
+|     Press B     |                      Main Menu                      |
+|     Press X     |                      Track Info                     |
+|     Press Y     | Return to `FILE BROWSER` / `DATABASE` / `PLAYLISTS` |
+|      START      |                     Context Menu                    |
+|        L1       |      WPS Hotkey Function<br>(Default: Playlist)     |
+|        R1       |                  Quick Screen Menu                  |
+|     Hold R1     |                     Pitch Screen                    |
+|      L2+R2      |                     Lock / Hold                     |
 
 ## Building
 
@@ -93,36 +96,18 @@ cd build
 ```
 
 Configure with the following options:
-* Target platform: `200`
-* LCD width: `320`
-* LCD height: `240`
+* Target platform: `210`
 * Build Type: `N`
   - Alternatively, `A` and then `D` to enabled debugging.
 
-Changes to `Makefile`:
+#### Build and ZIP
 ```
-export MEMORYSIZE=64
-
-export LDOPTS= -lm -ldl -L/usr/lib -lSDL2 -lpthread
-
-export RBDIR=/tmp/rockbox
-export ROCKBOX_SHARE_PATH=/tmp/rockbox
-export ROCKBOX_BINARY_PATH=/tmp/rockbox
-export ROCKBOX_LIBRARY_PATH=/tmp/rockbox
+make
+make rhbuild
 ```
 
-Changes to `autoconf.h`:
-```
-#define ROCKBOX_DIR "/tmp/rockbox"
-#define ROCKBOX_SHARE_PATH "/tmp/rockbox"
-#define ROCKBOX_BINARY_PATH "/tmp/rockbox"
-#define ROCKBOX_LIBRARY_PATH "/tmp/rockbox"
-```
-
-#### Build
-```
-make && make fullzip
-```
+* For muOS: `make muos-zip`
+* for NextUI: `make nextui-zip`
 
 ## Thanks
 

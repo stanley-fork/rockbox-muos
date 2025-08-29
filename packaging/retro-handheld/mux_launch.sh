@@ -9,6 +9,8 @@ echo app >/tmp/act_go
 GOV_GO="/tmp/gov_go"
 [ -e "$GOV_GO" ] && cat "$GOV_GO" >"$(GET_VAR "device" "cpu/governor")"
 
+SETUP_SDL_ENVIRONMENT
+
 # Set paths
 RBDIR="$(GET_VAR "device" "storage/rom/mount")/MUOS/application/Rockbox"
 RBDIR_BIND="/tmp/rockbox"
@@ -27,8 +29,6 @@ SET_VAR "config" "settings/power/idle_display" 0
 SET_VAR "config" "settings/power/idle_mute" 0
 SET_VAR "config" "settings/power/idle_sleep" 0
 HOTKEY restart
-
-SETUP_SDL_ENVIRONMENT
 
 # bind RBDIR to /tmp/rockbox.
 if [ ! -f "$RBDIR_BIND/rockbox" ]; then

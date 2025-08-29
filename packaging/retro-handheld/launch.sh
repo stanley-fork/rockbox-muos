@@ -19,6 +19,10 @@ if [ $PLATFORM == "tg5040" ]; then
 elif [ $PLATFORM == "my355" ]; then
   RBDEVICE="Miyoo-Flip"
   . "$RBDIR/systems/my355.sys"
+else
+  # While technically theres support for others, will need device specific GUID for gptokeyb2...
+  echo "Unsupported platform."
+  exit 1
 fi
 
 # -------

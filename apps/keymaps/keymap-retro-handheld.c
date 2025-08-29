@@ -69,6 +69,8 @@ static const struct button_mapping button_context_wps[]  = {
     { ACTION_WPS_CONTEXT,           BUTTON_START|BUTTON_REL,        BUTTON_START },
     { ACTION_WPS_HOTKEY,            BUTTON_L|BUTTON_REL,            BUTTON_L },
     { ACTION_WPS_QUICKSCREEN,       BUTTON_R|BUTTON_REL,            BUTTON_R },
+    { ACTION_WPS_PITCHSCREEN,       BUTTON_R|BUTTON_REPEAT,         BUTTON_NONE },
+    { ACTION_WPS_ID3SCREEN,         BUTTON_X|BUTTON_REL,            BUTTON_X },
     { ACTION_WPS_BROWSE,            BUTTON_Y|BUTTON_REL,            BUTTON_Y },
     { ACTION_WPS_ABSETA_PREVDIR,    BUTTON_L2|BUTTON_Y,             BUTTON_NONE },
     { ACTION_WPS_ABSETB_NEXTDIR,    BUTTON_L2|BUTTON_A,             BUTTON_NONE },
