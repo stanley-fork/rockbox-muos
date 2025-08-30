@@ -19,13 +19,6 @@ start = g
 start = hold_state shutdown
 select = f 
 
-l2 = hold_state hold
-
-[controls:hold]
-overlay = parent
-
-r2 = h
-
 [controls:shutdown]
 overlay = parent
 

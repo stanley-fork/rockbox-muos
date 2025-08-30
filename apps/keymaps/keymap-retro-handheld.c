@@ -47,6 +47,7 @@ static const struct button_mapping button_context_standard[]  = {
     { ACTION_STD_MENU,          BUTTON_Y|BUTTON_REL,        BUTTON_Y },
     { ACTION_STD_CONTEXT,       BUTTON_START|BUTTON_REL,    BUTTON_START },
     { ACTION_STD_QUICKSCREEN,   BUTTON_R|BUTTON_REL,        BUTTON_R },
+    {ACTION_STD_KEYLOCK,        BUTTON_L2|BUTTON_R2,        BUTTON_NONE},
 
     LAST_ITEM_IN_LIST
 }; /* button_context_standard */
@@ -66,6 +67,7 @@ static const struct button_mapping button_context_wps[]  = {
     { ACTION_WPS_VOLUP,             BUTTON_UP,                      BUTTON_NONE },
     { ACTION_WPS_VOLUP,             BUTTON_UP|BUTTON_REPEAT,        BUTTON_NONE },
     { ACTION_WPS_MENU,              BUTTON_B|BUTTON_REL,            BUTTON_B },
+    {ACTION_STD_KEYLOCK,            BUTTON_L2|BUTTON_R2,            BUTTON_NONE},
     { ACTION_WPS_CONTEXT,           BUTTON_START|BUTTON_REL,        BUTTON_START },
     { ACTION_WPS_HOTKEY,            BUTTON_L|BUTTON_REL,            BUTTON_L },
     { ACTION_WPS_QUICKSCREEN,       BUTTON_R|BUTTON_REL,            BUTTON_R },
@@ -83,6 +85,14 @@ static const struct button_mapping button_context_wps[]  = {
 
     LAST_ITEM_IN_LIST
 }; /* button_context_wps */
+
+static const struct button_mapping button_context_wps_locked[] = {
+    { ACTION_WPS_PLAY,              RC_BUTTON_PLAY|BUTTON_REL,      RC_BUTTON_PLAY },
+    { ACTION_WPS_STOP,              RC_BUTTON_PLAY|BUTTON_REPEAT,   RC_BUTTON_PLAY },
+    { ACTION_WPS_SKIPPREV,          RC_BUTTON_PREVSONG|BUTTON_REL,  RC_BUTTON_PREVSONG },
+    { ACTION_WPS_SKIPNEXT,          RC_BUTTON_NEXTSONG|BUTTON_REL,  RC_BUTTON_NEXTSONG },
+    LAST_ITEM_IN_LIST
+}; /* button_context_wps_locked */
 
 static const struct button_mapping button_context_list[] = {
     { ACTION_LIST_VOLUP,      BUTTON_SELECT|BUTTON_A,                  BUTTON_NONE },
@@ -223,13 +233,15 @@ static const struct button_mapping button_context_radio[]  = {
 
 const struct button_mapping* get_context_mapping(int context)
 {
-    switch (context)
+    switch (context & ~CONTEXT_LOCKED)
     {
         case CONTEXT_STD:
             return button_context_standard;
         case CONTEXT_WPS:
-            return button_context_wps;
-
+            if (context & CONTEXT_LOCKED)
+                return button_context_wps_locked;
+            else
+                return button_context_wps;
         case CONTEXT_LIST:
             return button_context_list;
         case CONTEXT_MAINMENU:
